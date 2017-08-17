@@ -7,3 +7,6 @@ keywords: wiki,simiki
 description: newpage of github
 author: heyunfan
 theme: yasimple_x2
+default_ext: md
+pygments: true
+debug: false
