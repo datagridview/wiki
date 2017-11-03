@@ -6,7 +6,7 @@ title: 何先生的wiki
 keywords: wiki,simiki
 description: newpage of github
 author: heyunfan
-theme: yasimple_x2
+theme: simple
 default_ext: md
 pygments: true
 debug: false
