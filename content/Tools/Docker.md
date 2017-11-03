@@ -7,6 +7,8 @@ collection: 虚拟化
 log: "html中的JavaScript"
 ---
 
+[TOC]
+
 以下命令以shell为平台。
 
 ## 参考网站
