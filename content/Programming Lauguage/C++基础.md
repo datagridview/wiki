@@ -45,7 +45,7 @@ extern int i = 3; //定义
 
 引用：给对象其另外一个名字，且必须被初始化。与别名等同。
 
-```
+```C++
 int ival = 1024;
 int &refVal = ival; //refVal引用ival
 int &refVal4 = 10; //错误：引用只能绑定在对象上
@@ -62,13 +62,13 @@ int &refVal4 = 10; //错误：引用只能绑定在对象上
 
 对常量的引用一定要是相同类型的引用对象。
 
-```
+```C++
 const int a = 1;
 const int &1 = a;
 ```
 不过，对const的引用可能引用一个并非const的对象，如下
 
-```
+```C++
 int i  = 43;
 int &a = i;
 const int &r2 = i;
@@ -85,7 +85,7 @@ r2 = 0; //这个是错误的 无法改变
 
 #### 自定义数据类型
 
-```
+```C++
 struct sales_data { /* */ };
 sales_data accum, trans, *salesptr;
 ```
@@ -94,7 +94,7 @@ sales_data accum, trans, *salesptr;
 
 使用using声明无需专门的前缀即可使用相关的方法，例如：using _namespace::name_;
 
-```
+```C++
 using std::cin;
 ```
 
@@ -102,14 +102,14 @@ using std::cin;
 
 以下示例包含以下前提代码：
 
-```
+```C++
 #include <string>
 using std::string;
 ```
 
 ##### 初始化string
 
-```
+```C++
 string s1; //初始化为空
 string s2 = s1;
 string s3 = "lalala"; //拷贝初始化
@@ -121,7 +121,7 @@ string s2 = "aa"; <=> string s2("aa"); //拷贝初始化与直接初始化
 
 ##### 如何使用getline读取一整行
 
-```
+```C++
 int main () {
 	string line;
 	while(getline(cin, line))
@@ -138,7 +138,7 @@ int main () {
 
 ##### 如何字符串相加
 
-```
+```C++
 string s1 = "ee",s2 = "aa";
 string a = s1 + s2;
 string b = s1 + "aa";
@@ -147,7 +147,7 @@ string c = "vv" + "bb"; //错误，字面量不能直接相加
 综上所说，要实现string的加减，必须要有一方为string类型，而不能染字面量直接相加。
 
 ##### 如何遍历字符串
-```
+```C++
 for ( declaration : expression(对象))
 	statement
 ```
