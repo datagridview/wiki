@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>ICMP - 何先生的wiki</title>
+    <meta name="keywords" content="wiki,simiki"/>
+    <meta name="description" content="newpage of github"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#Principle">Principle</a>&nbsp;&#187;&nbsp;ICMP
+    <span class="updated">Page Updated&nbsp;
+      2017-11-03 18：13
+      
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">ICMP</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#icmpinternet">ICMP：Internet控制报文协议</a><ul>
+<li><a href="#_1">封装</a></li>
+<li><a href="#icmp">ICMP报文</a><ul>
+<li><a href="#_2">种类</a></li>
+<li><a href="#icmpv4">ICMPv4</a></li>
+<li><a href="#icmpv6">ICMPv6</a></li>
+</ul>
+</li>
+<li><a href="#icmp_1">ICMP差错报文</a><ul>
+<li><a href="#_3">目标不可达</a></li>
+<li><a href="#_4">重定向</a></li>
+<li><a href="#icmp_2">ICMP超时</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="icmpinternet">ICMP：Internet控制报文协议</h2>
+<p>ICMP被认为是IP的一部分，因为它使用IP来传输，在五层网络协议中介于运输层和网络层之间。</p>
+<p>不是为了确保IP的可靠性，而是表示故障信息。容易被黑客利用影响系统功能操作和获取配置信息。</p>
+<h4 id="_1">封装</h4>
+<ul>
+<li>在IP中被封装。IPv4中协议字段为1，表示携带ICMPv4。</li>
+<li>ICMPv4类型字段保留了42个不同的值，只有8个经常使用。</li>
+<li>ICMP头部中包含用于计算校验和的位数。</li>
+</ul>
+<h3 id="icmp">ICMP报文</h3>
+<h4 id="_2">种类</h4>
+<ul>
+<li>差错报文(error Message)</li>
+<li>信息报文(info Message)</li>
+</ul>
+<h4 id="icmpv4">ICMPv4</h4>
+<p>信息报文分为：回显请求（类型8），回显应答（类型0），路由器通告（类型9），路由器请求（类型10）。</p>
+<p>差错报文分为：目的地不可达（类型3），重定向（类型5），超时（类型11），参数问题（类型12）</p>
+<h4 id="icmpv6">ICMPv6</h4>
+<p>简略。了解0-127都是差错报文，128-255都是信息报文。目的不可达为类型1。</p>
+<h3 id="icmp_1">ICMP差错报文</h3>
+<p>为限制产生广播风暴，对生成ICMP有一定限制。</p>
+<ul>
+<li>对于以下情况不会响应产生ICMPv4差错报文：</li>
+<li>v4差错报文</li>
+<li>目的地是广播或组播地址的数据报</li>
+<li>链路层广播的数据报</li>
+<li>不是第一个分片的其它分片</li>
+<li>源地址不能为环回地址，零地址，广播组播地址。</li>
+<li>对于以下情况不会响应产生ICMPv6差错报文：</li>
+<li>v6差错报文</li>
+<li>v6重定向报文</li>
+<li>目的地为组播地址</li>
+<li>链路层组播、广播地址</li>
+</ul>
+<p>令牌桶由（B,N）构造最大数量B，增长速率N，单位是字节。由于限制单一发送者。</p>
+<h4 id="_3">目标不可达</h4>
+<p>数据包无法发送到目的地。</p>
+<p>当出现差错的时候会返回差错报文包含IP头部+ICMP头部+违规数据包（TCP|UDP或者别的什么的原始数据报）</p>
+<p>v4包含16个不同的代码表示类型，4个常用。</p>
+<ul>
+<li>主机不可达（1）</li>
+<li>端口不可达（3）</li>
+<li>需要分片|已指定不用分片（4）</li>
+<li>管理禁止通信（13）</li>
+</ul>
+<p>v6包含7个不同的代码。</p>
+<ul>
+<li>地址不可达</li>
+<li>目的无路由</li>
+<li>管理禁止通信</li>
+<li>端口不可达</li>
+<li>数据包太大</li>
+<li>超出源地址范围</li>
+<li>拒绝路由到目的地（黑洞路由）不希望被发送到的地址（火星路由、虚假路由）</li>
+</ul>
+<h4 id="_4">重定向</h4>
+<p>投递数据报到下一跳。因为确定给定的数据报存在一个比自己更好的下一跳路由，发送重定向报文使其更新转发表，同时把数据报转发给更好的路由。</p>
+<h4 id="icmp_2">ICMP超时</h4>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 heyunfan.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-06-26 23:41:54</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>

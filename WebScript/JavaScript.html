@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>JavaScript - 何先生的wiki</title>
+    <meta name="keywords" content="wiki,simiki"/>
+    <meta name="description" content="newpage of github"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#WebScript">WebScript</a>&nbsp;&#187;&nbsp;JavaScript
+    <span class="updated">Page Updated&nbsp;
+      2017-08-08 12:04
+      
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">JavaScript</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#htmljavascript">在HTML中使用JavaScript</a></li>
+<li><a href="#_1">基本认识</a></li>
+<li><a href="#todo">TODO</a></li>
+</ul>
+</div>
+<h2 id="htmljavascript">在HTML中使用JavaScript</h2>
+<p><code>&lt;script&gt;</code>元素：</p>
+<ul>
+<li>
+<p>async 属性：应立即下载脚本，但不妨碍其他操作，是一种一部的执行下载。仅对外部文件。该属性应该表示为<code>async</code>。（XHTML中表示为<code>async="async"</code>）</p>
+</li>
+<li>
+<p>defer属性：表示在文档被加载完毕之后再对于脚本的加载，样例与将<code>&lt;script&gt;</code>标签放置在文档末尾是一致的，仅对于外部文件。该属性表示为<code>defer="defer"</code></p>
+</li>
+<li>
+<p>无论包含那种代码，只要不存在<code>defer</code> 和<code>async</code>就会按照文档的顺序一次解释执行，当然将<code>&lt;script&gt;</code>标签放置在末尾不失为一种好的方法。</p>
+</li>
+<li>
+<p>注释hack：用于JavaScript不被使用的情况下</p>
+</li>
+</ul>
+<div class="hlcode"><pre>  <span class="nt">&lt;script&gt;</span><span class="c">&lt;!--</span>              <span class="err">以此注释以下的</span><span class="kd">function</span> <span class="nx">javaScript</span><span class="err">语句</span>
+    <span class="kd">function</span> <span class="nx">sayHi</span><span class="p">(){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;hi&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="o">/</span><span class="err">/--&gt;</span><span class="nt">&lt;/script&gt;</span>                以此注释结尾标签
+</pre></div>
+
+
+<p><code>&lt;noscript&gt;</code>元素：</p>
+<p>出现在不支持 JavaScript 或者禁用JavaScript的情况下</p>
+<div class="hlcode"><pre>  <span class="nt">&lt;noscript&gt;</span>
+    <span class="nt">&lt;p&gt;</span>本页面需要启用（支持）JavaScript<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/noscript&gt;</span>
+</pre></div>
+
+
+<h2 id="_1">基本认识</h2>
+<p>严格模式：ECMAScript 5 中引入，需要在顶部添加代码<code>use strict;</code>这个可以加在整个js文件的开头，也可以加在function函数的开头，表示一个局部范围内的严格模式。</p>
+<p>推荐使用每一个子语句都要用<code>{}</code>语句块隔开，更加的清晰。</p>
+<p>var的使用：</p>
+<div class="hlcode"><pre>  <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+  <span class="nx">m</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>      <span class="c1">//这是可以的</span>
+
+  <span class="kd">function</span> <span class="nx">m</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>  <span class="c1">//局部变量</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">m</span><span class="p">(){</span>
+    <span class="nx">me</span> <span class="o">=</span> <span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+  <span class="c1">//全局变量。不过如果不调用这个函数，就不会创建这个全局变量（略有差别）但不推荐，不便于管理</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<p>五种基本数据类型：</p>
+<ul>
+<li>Undefined——未定义</li>
+<li>Null——空</li>
+<li>Boolean——布尔值true false</li>
+<li>Number——数值</li>
+<li>String——字符串</li>
+</ul>
+<p>一种复杂数据类型：</p>
+<ul>
+<li>Object</li>
+</ul>
+<p><code>Null==Undefined</code> True</p>
+<p><code>Null===Undefined</code>False</p>
+<p>true 不一定等于1，false不一定等于0。以下为转换法则：</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">true</th>
+<th align="center">false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">String</td>
+<td align="center">非空</td>
+<td align="center">""</td>
+</tr>
+<tr>
+<td align="center">Number</td>
+<td align="center">非0;Infinity</td>
+<td align="center">0,NaN</td>
+</tr>
+<tr>
+<td align="center">Object</td>
+<td align="center">任何对象</td>
+<td align="center">null</td>
+</tr>
+<tr>
+<td align="center">Undefined</td>
+<td align="center">不适用</td>
+<td align="center">undefined</td>
+</tr>
+</tbody>
+</table>
+<div class="hlcode"><pre><span class="n">var</span> <span class="n">m</span> <span class="o">=</span> <span class="mo">070</span><span class="p">;</span>    <span class="c1">//开头为0 八进制字面量   严格模式下没有这种说法</span>
+<span class="n">var</span> <span class="n">n</span> <span class="o">=</span> <span class="mh">0x1f</span><span class="p">;</span>   <span class="c1">//开头0x 十六进制字面量</span>
+</pre></div>
+
+
+<p>0.1+0.2=0.3000000000000004 浮点数计算误差。</p>
+<p>Infinity 无法参与计算。Number.MIN_VALUE 和Number.MAX_VALUE。</p>
+<p>NaN!=NaN NaN 与自身也不相等。</p>
+<p>数值转换——Number：</p>
+<ul>
+<li>Boolean-&gt;1,0</li>
+<li>null-&gt;0</li>
+<li>undefined-&gt;NaN</li>
+<li>String</li>
+<li>"011"-&gt;11</li>
+<li>""-&gt;0</li>
+<li>其余-&gt;NaN</li>
+</ul>
+<p>parseInt(args1,args2)，args1表示数值，args2表示进制。</p>
+<p>toString(args)，args可以表示进制。</p>
+<p>转换成字符串可以偷懒+""。</p>
+<p>Object原生属性、方法：</p>
+<ul>
+<li><code>constructor</code>：构造方法<code>Object()</code></li>
+<li><code>hasOwnProperty("propertyName")</code>：对象实例是否有属性，字符串形式指定。</li>
+<li><code>isPrototypeOf(Object)</code>：是否是当前对象的原型。</li>
+<li><code>propertyIsEnumerable</code>：关系到是否可用for-in。</li>
+<li>其他。</li>
+</ul>
+<p>!!  与  Boolean 的效果一致。</p>
+<p>关系运算符：</p>
+<div class="hlcode"><pre><span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;23&quot;</span> <span class="o">&lt;</span> <span class="s2">&quot;3&quot;</span><span class="p">;</span>        <span class="c1">//true</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="s2">&quot;23&quot;</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">;</span>      <span class="c1">//false</span>
+</pre></div>
+
+
+<p>for-in语句：</p>
+<div class="hlcode"><pre><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">proName</span> <span class="k">in</span> <span class="nb">window</span><span class="p">){</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">proName</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>with语句：</p>
+<div class="hlcode"><pre><span class="kd">with</span><span class="p">(</span><span class="nx">location</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">qs</span> <span class="o">=</span> <span class="nx">search</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">hostname</span> <span class="o">=</span> <span class="nx">hostname</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">href</span><span class="p">;</span>
+<span class="p">}</span><span class="c1">//语句都省略location前缀，但是大型项目不推荐。   </span>
+</pre></div>
+
+
+<p>arguments的属性实现的方法重载：</p>
+<div class="hlcode"><pre><span class="kd">function</span> <span class="nx">add</span><span class="p">(){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">2</span><span class="p">){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">//11</span>
+<span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>   <span class="c1">//3</span>
+</pre></div>
+
+
+<h2 id="todo">TODO</h2>
+<ul>
+<li>第四章 变量与作用域</li>
+</ul>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 heyunfan.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-06-26 23:41:54</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>

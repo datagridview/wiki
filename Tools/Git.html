@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Git - 何先生的wiki</title>
+    <meta name="keywords" content="wiki,simiki"/>
+    <meta name="description" content="newpage of github"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#Tools">Tools</a>&nbsp;&#187;&nbsp;Git
+    <span class="updated">Page Updated&nbsp;
+      2017-08-01 14:40
+      
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Git</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#git">Git配置</a></li>
+<li><a href="#git_1">Git常用命令</a><ul>
+<li><a href="#_1">查看、添加、提交、删除、找回，重置修改文件</a></li>
+</ul>
+</li>
+<li><a href="#diff">查看文件diff</a></li>
+<li><a href="#_2">查看提交记录</a></li>
+<li><a href="#git_2">Git 本地分支管理</a><ul>
+<li><a href="#_3">查看、切换、创建和删除分支</a></li>
+<li><a href="#rebase">分支合并和rebase</a></li>
+<li><a href="#git_3">Git补丁管理(方便在多台机器上开发同步时用)</a></li>
+<li><a href="#git_4">Git暂存管理</a></li>
+<li><a href="#git_5">Git远程分支管理</a></li>
+<li><a href="#git_6">Git远程仓库管理</a></li>
+<li><a href="#_4">创建远程仓库</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="git">Git配置</h2>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">name</span> <span class="s">&quot;storm&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">user</span><span class="p">.</span><span class="n">email</span> <span class="s">&quot;stormzhang.dev@gmail.com&quot;</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">color</span><span class="p">.</span><span class="n">ui</span> <span class="nb">true</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">alias</span><span class="p">.</span><span class="n">co</span> <span class="n">checkout</span>  <span class="err">#</span> <span class="err">别名</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">alias</span><span class="p">.</span><span class="n">ci</span> <span class="n">commit</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">alias</span><span class="p">.</span><span class="n">st</span> <span class="n">status</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">alias</span><span class="p">.</span><span class="n">br</span> <span class="n">branch</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">core</span><span class="p">.</span><span class="n">editor</span> <span class="s">&quot;vim&quot;</span>  <span class="err">#</span> <span class="err">设置</span><span class="n">Editor</span><span class="err">使用</span><span class="n">vim</span>
+<span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">global</span> <span class="n">core</span><span class="p">.</span><span class="n">quotepath</span> <span class="nb">false</span> <span class="err">#</span> <span class="err">设置显示中文文件名</span>
+</pre></div>
+
+
+<p>用户的git配置文件~/.gitconfig</p>
+<h2 id="git_1">Git常用命令</h2>
+<h3 id="_1">查看、添加、提交、删除、找回，重置修改文件</h3>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nx">help</span> <span class="o">&lt;</span><span class="nb">command</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">显示command的help</span>
+<span class="nx">git</span> <span class="nx">show</span>            <span class="err">#</span> <span class="nx">显示某次提交的内容</span>
+<span class="nx">git</span> <span class="nx">show</span> <span class="nv">$id</span>
+
+<span class="nx">git</span> <span class="nx">co</span>  <span class="o">--</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>   <span class="err">#</span> <span class="nx">抛弃工作区修改</span>
+<span class="nx">git</span> <span class="nx">co</span>  <span class="nx">.</span>           <span class="err">#</span> <span class="nx">抛弃工作区修改</span>
+
+<span class="nx">git</span> <span class="nb">add</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>      <span class="err">#</span> <span class="nx">将工作文件修改提交到本地暂存区</span>
+<span class="nx">git</span> <span class="nb">add</span> <span class="nx">.</span>           <span class="err">#</span> <span class="nx">将所有修改过的工作文件提交暂存区</span>
+
+<span class="nx">git</span> <span class="nx">rm</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>       <span class="err">#</span> <span class="nx">从版本库中删除文件</span>
+<span class="nx">git</span> <span class="nx">rm</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span> <span class="o">--</span><span class="nx">cached</span>  <span class="err">#</span> <span class="nx">从版本库中删除文件</span><span class="err">，</span><span class="nx">但不删除文件</span>
+
+<span class="nx">git</span> <span class="nb">reset</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>    <span class="err">#</span> <span class="nx">从暂存区恢复到工作文件</span>
+<span class="nx">git</span> <span class="nb">reset</span> <span class="o">--</span> <span class="nx">.</span>      <span class="err">#</span> <span class="nx">从暂存区恢复到工作文件</span>
+<span class="nx">git</span> <span class="nb">reset</span> <span class="o">--</span><span class="nx">hard</span>    <span class="err">#</span> <span class="nx">恢复最近一次提交过的状态</span><span class="err">，</span><span class="nx">即放弃上次提交后的所有本次修改</span>
+
+<span class="nx">git</span> <span class="nx">ci</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>
+<span class="nx">git</span> <span class="nx">ci</span> <span class="nx">.</span>
+<span class="nx">git</span> <span class="nx">ci</span> <span class="na">-a</span>           <span class="err">#</span> <span class="nx">将git</span> <span class="nb">add</span><span class="p">,</span> <span class="nx">git</span> <span class="nx">rm和git</span> <span class="nx">ci等操作都合并在一起做</span>
+<span class="nx">git</span> <span class="nx">ci</span> <span class="na">-am</span> <span class="s2">&quot;some comments&quot;</span>
+<span class="nx">git</span> <span class="nx">ci</span> <span class="o">--</span><span class="nx">amend</span>      <span class="err">#</span> <span class="nx">修改最后一次提交记录</span>
+
+<span class="nx">git</span> <span class="nx">revert</span> <span class="o">&lt;</span><span class="nv">$id</span><span class="o">&gt;</span>    <span class="err">#</span> <span class="nx">恢复某次提交的状态</span><span class="err">，</span><span class="nx">恢复动作本身也创建了一次提交对象</span>
+<span class="nx">git</span> <span class="nx">revert</span> <span class="nb">HEAD</span>     <span class="err">#</span> <span class="nx">恢复最后一次提交的状态</span>
+</pre></div>
+
+
+<h2 id="diff">查看文件diff</h2>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nx">diff</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>     <span class="err">#</span> <span class="nx">比较当前文件和暂存区文件差异</span>
+<span class="nx">git</span> <span class="nx">diff</span>
+<span class="nx">git</span> <span class="nx">diff</span> <span class="o">&lt;</span><span class="nv">$id1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nv">$id2</span><span class="o">&gt;</span>   <span class="err">#</span> <span class="nx">比较两次提交之间的差异</span>
+<span class="nx">git</span> <span class="nx">diff</span> <span class="o">&lt;</span><span class="nx">branch1</span><span class="o">&gt;</span><span class="nx">..</span><span class="o">&lt;</span><span class="nx">branch2</span><span class="o">&gt;</span> <span class="err">#</span> <span class="nx">在两个分支之间比较</span> 
+<span class="nx">git</span> <span class="nx">diff</span> <span class="o">--</span><span class="nx">staged</span>   <span class="err">#</span> <span class="nx">比较暂存区和版本库差异</span>
+<span class="nx">git</span> <span class="nx">diff</span> <span class="o">--</span><span class="nx">cached</span>   <span class="err">#</span> <span class="nx">比较暂存区和版本库差异</span>
+<span class="nx">git</span> <span class="nx">diff</span> <span class="o">--</span><span class="nb">stat</span>     <span class="err">#</span> <span class="nx">仅仅比较统计信息</span>
+</pre></div>
+
+
+<h2 id="_2">查看提交记录</h2>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="k">log</span>
+<span class="nx">git</span> <span class="k">log</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>      <span class="err">#</span> <span class="nx">查看该文件每次提交记录</span>
+<span class="nx">git</span> <span class="k">log</span> <span class="na">-p</span> <span class="o">&lt;</span><span class="nb">file</span><span class="o">&gt;</span>   <span class="err">#</span> <span class="nx">查看每次详细修改内容的diff</span>
+<span class="nx">git</span> <span class="k">log</span> <span class="na">-p</span> <span class="o">-</span><span class="mi">2</span>       <span class="err">#</span> <span class="nx">查看最近两次详细</span>
+</pre></div>
+
+
+<h2 id="git_2">Git 本地分支管理</h2>
+<h3 id="_3">查看、切换、创建和删除分支</h3>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nx">br</span> <span class="na">-r</span>           <span class="err">#</span> <span class="nx">查看远程分支</span>
+<span class="nx">git</span> <span class="nx">br</span> <span class="o">&lt;</span><span class="nx">new_branch</span><span class="o">&gt;</span> <span class="err">#</span> <span class="nx">创建新的分支</span>
+<span class="nx">git</span> <span class="nx">br</span> <span class="na">-v</span>           <span class="err">#</span> <span class="nx">查看各个分支最后提交信息</span>
+<span class="nx">git</span> <span class="nx">br</span> <span class="o">--</span><span class="nx">merged</span>     <span class="err">#</span> <span class="nx">查看已经被合并到当前分支的分支</span>
+<span class="nx">git</span> <span class="nx">br</span> <span class="o">--</span><span class="nx">no</span><span class="na">-merged</span>  <span class="err">#</span> <span class="nx">查看尚未被合并到当前分支的分支</span>
+
+<span class="nx">git</span> <span class="nx">co</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>     <span class="err">#</span> <span class="nx">切换到某个分支</span>
+<span class="nx">git</span> <span class="nx">co</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">new_branch</span><span class="o">&gt;</span> <span class="err">#</span> <span class="nx">创建新的分支</span><span class="err">，</span><span class="nx">并且切换过去</span>
+<span class="nx">git</span> <span class="nx">co</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">new_branch</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">基于branch创建新的new_branch</span>
+
+<span class="nx">git</span> <span class="nx">co</span> <span class="nv">$id</span>          <span class="err">#</span> <span class="nx">把某次历史提交记录checkout出来</span><span class="err">，</span><span class="nx">但无分支信息</span><span class="err">，</span><span class="nx">切换到其他分支会自动删除</span>
+<span class="nx">git</span> <span class="nx">co</span> <span class="nv">$id</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">new_branch</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">把某次历史提交记录checkout出来</span><span class="err">，</span><span class="nx">创建成一个分支</span>
+
+<span class="nx">git</span> <span class="nx">br</span> <span class="na">-d</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">删除某个分支</span>
+<span class="nx">git</span> <span class="nx">br</span> <span class="na">-D</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">强制删除某个分支</span> <span class="p">(</span><span class="nx">未被合并的分支被删除的时候需要强制</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="rebase">分支合并和rebase</h3>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nb">merge</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>               <span class="err">#</span> <span class="nx">将branch分支合并到当前分支</span>
+<span class="nx">git</span> <span class="nb">merge</span> <span class="nx">origin</span><span class="p">/</span><span class="nx">master</span> <span class="o">--</span><span class="nx">no</span><span class="na">-ff</span>  <span class="err">#</span> <span class="nx">不要Fast</span><span class="na">-Foward合并</span><span class="err">，</span><span class="nx">这样可以生成merge提交</span>
+
+<span class="nx">git</span> <span class="nx">rebase</span> <span class="nx">master</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>       <span class="err">#</span> <span class="nx">将master</span> <span class="nx">rebase到branch</span><span class="err">，</span><span class="nx">相当于</span><span class="err">：</span>
+<span class="nx">git</span> <span class="nx">co</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span> <span class="nx">git</span> <span class="nx">rebase</span> <span class="nx">master</span> <span class="o">&amp;&amp;</span> <span class="nx">git</span> <span class="nx">co</span> <span class="nx">master</span> <span class="o">&amp;&amp;</span> <span class="nx">git</span> <span class="nb">merge</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<h3 id="git_3">Git补丁管理(方便在多台机器上开发同步时用)</h3>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">diff</span> <span class="o">&gt;</span> <span class="p">..</span><span class="o">/</span><span class="n">sync</span><span class="p">.</span><span class="n">patch</span>         <span class="err">#</span> <span class="err">生成补丁</span>
+<span class="n">git</span> <span class="n">apply</span> <span class="p">..</span><span class="o">/</span><span class="n">sync</span><span class="p">.</span><span class="n">patch</span>          <span class="err">#</span> <span class="err">打补丁</span>
+<span class="n">git</span> <span class="n">apply</span> <span class="o">--</span><span class="n">check</span> <span class="p">..</span><span class="o">/</span><span class="n">sync</span><span class="p">.</span><span class="n">patch</span>  <span class="err">#</span> <span class="err">测试补丁能否成功</span>
+</pre></div>
+
+
+<h3 id="git_4">Git暂存管理</h3>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">stash</span>                        <span class="err">#</span> <span class="err">暂存</span>
+<span class="n">git</span> <span class="n">stash</span> <span class="n">list</span>                   <span class="err">#</span> <span class="err">列所有</span><span class="n">stash</span>
+<span class="n">git</span> <span class="n">stash</span> <span class="n">apply</span>                  <span class="err">#</span> <span class="err">恢复暂存的内容</span>
+<span class="n">git</span> <span class="n">stash</span> <span class="n">drop</span>                   <span class="err">#</span> <span class="err">删除暂存区</span>
+<span class="n">git</span> <span class="n">stash</span> <span class="n">clear</span>
+</pre></div>
+
+
+<h3 id="git_5">Git远程分支管理</h3>
+<div class="hlcode"><pre><span class="nx">git</span> <span class="nx">pull</span>                         <span class="err">#</span> <span class="nx">抓取远程仓库所有分支更新并合并到本地</span>
+<span class="nx">git</span> <span class="nx">pull</span> <span class="o">--</span><span class="nx">no</span><span class="na">-ff</span>                 <span class="err">#</span> <span class="nx">抓取远程仓库所有分支更新并合并到本地</span><span class="err">，</span><span class="nx">不要快进合并</span>
+<span class="nx">git</span> <span class="nx">fetch</span> <span class="nx">origin</span>                 <span class="err">#</span> <span class="nx">抓取远程仓库更新</span>
+<span class="nx">git</span> <span class="nb">merge</span> <span class="nx">origin</span><span class="p">/</span><span class="nx">master</span>          <span class="err">#</span> <span class="nx">将远程主分支合并到本地当前分支</span>
+<span class="nx">git</span> <span class="nx">co</span> <span class="o">--</span><span class="nx">track</span> <span class="nx">origin</span><span class="p">/</span><span class="nx">branch</span>     <span class="err">#</span> <span class="nx">跟踪某个远程分支创建相应的本地分支</span>
+<span class="nx">git</span> <span class="nx">co</span> <span class="na">-b</span> <span class="o">&lt;</span><span class="nx">local_branch</span><span class="o">&gt;</span> <span class="nx">origin</span><span class="o">/&lt;</span><span class="nx">remote_branch</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">基于远程分支创建本地分支</span><span class="err">，</span><span class="nx">功能同上</span>
+
+<span class="nx">git</span> <span class="nb">push</span>                         <span class="err">#</span> <span class="nx">push所有分支</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="nx">master</span>           <span class="err">#</span> <span class="nx">将本地主分支推到远程主分支</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="na">-u</span> <span class="nx">origin</span> <span class="nx">master</span>        <span class="err">#</span> <span class="nx">将本地主分支推到远程</span><span class="p">(</span><span class="nx">如无远程主分支则创建</span><span class="err">，</span><span class="nx">用于初始化远程仓库</span><span class="p">)</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="o">&lt;</span><span class="nx">local_branch</span><span class="o">&gt;</span>   <span class="err">#</span> <span class="nx">创建远程分支</span><span class="err">，</span> <span class="nx">origin是远程仓库名</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="o">&lt;</span><span class="nx">local_branch</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="nx">remote_branch</span><span class="o">&gt;</span>  <span class="err">#</span> <span class="nx">创建远程分支</span>
+<span class="nx">git</span> <span class="nb">push</span> <span class="nx">origin</span> <span class="p">:</span><span class="o">&lt;</span><span class="nx">remote_branch</span><span class="o">&gt;</span>  <span class="err">#</span><span class="nx">先删除本地分支</span><span class="p">(</span><span class="nx">git</span> <span class="nx">br</span> <span class="na">-d</span> <span class="o">&lt;</span><span class="nx">branch</span><span class="o">&gt;</span><span class="p">)</span><span class="err">，</span><span class="nx">然后再push删除远程分支</span>
+</pre></div>
+
+
+<h3 id="git_6">Git远程仓库管理</h3>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>                    <span class="err">#</span> <span class="err">查看远程服务器地址和仓库名称</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">show</span> <span class="n">origin</span>           <span class="err">#</span> <span class="err">查看远程服务器仓库状态</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="o">:</span><span class="n">stormzhang</span><span class="o">/</span><span class="n">demo</span><span class="p">.</span><span class="n">git</span>         <span class="err">#</span> <span class="err">添加远程仓库地址</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="n">stormzhang</span><span class="o">/</span><span class="n">demo</span><span class="p">.</span><span class="n">git</span> <span class="err">#</span> <span class="err">设置远程仓库地址</span><span class="p">(</span><span class="err">用于修改远程仓库地址</span>
+</pre></div>
+
+
+<h3 id="_4">创建远程仓库</h3>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">bare</span> <span class="n">robbin_site</span> <span class="n">robbin_site</span><span class="p">.</span><span class="n">git</span>  <span class="err">#</span> <span class="err">用带版本的项目创建纯版本仓库</span>
+<span class="n">scp</span> <span class="o">-</span><span class="n">r</span> <span class="n">my_project</span><span class="p">.</span><span class="n">git</span> <span class="n">git</span><span class="err">@</span><span class="n">git</span><span class="p">.</span><span class="n">csdn</span><span class="p">.</span><span class="n">net</span><span class="o">:~</span>      <span class="err">#</span> <span class="err">将纯仓库上传到服务器上</span>
+
+<span class="n">mkdir</span> <span class="n">robbin_site</span><span class="p">.</span><span class="n">git</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">robbin_site</span><span class="p">.</span><span class="n">git</span> <span class="o">&amp;&amp;</span> <span class="n">git</span> <span class="o">--</span><span class="n">bare</span> <span class="n">init</span> <span class="err">#</span> <span class="err">在服务器创建纯仓库</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">git</span><span class="err">@</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">:</span><span class="n">robbin</span><span class="o">/</span><span class="n">robbin_site</span><span class="p">.</span><span class="n">git</span>    <span class="err">#</span> <span class="err">设置远程仓库地址</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>                                      <span class="err">#</span> <span class="err">客户端首次提交</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">develop</span>  <span class="err">#</span> <span class="err">首次将本地</span><span class="n">develop</span><span class="err">分支提交到远程</span><span class="n">develop</span><span class="err">分支，并且</span><span class="n">track</span>
+
+<span class="n">git</span> <span class="n">remote</span> <span class="n">set</span><span class="o">-</span><span class="n">head</span> <span class="n">origin</span> <span class="n">master</span>   <span class="err">#</span> <span class="err">设置远程仓库的</span><span class="n">HEAD</span><span class="err">指向</span><span class="n">master</span><span class="err">分支</span>
+</pre></div>
+
+
+<p>via <a href="http://stormzhang.com/git/2014/01/27/git-common-command/">stormzhang</a></p>
+<p>datagridview</p>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 heyunfan.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-06-26 23:41:54</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>C++ - 何先生的wiki</title>
+    <meta name="keywords" content="wiki,simiki"/>
+    <meta name="description" content="newpage of github"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#Programming Lauguage">Programming Lauguage</a>&nbsp;&#187;&nbsp;C++
+    <span class="updated">Page Updated&nbsp;
+      2018-06-25 14:19
+      
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">C++</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#c">C++基础</a><ul>
+<li><a href="#_1">变量和基本类型</a><ul>
+<li><a href="#_2">列表初始化</a></li>
+<li><a href="#_3">默认初始化</a></li>
+<li><a href="#_4">变量声明和定义的关系</a></li>
+<li><a href="#_5">复合类型：引用和指针</a></li>
+<li><a href="#_6">定义常量</a></li>
+<li><a href="#constexpr">常量表达式和constexpr</a></li>
+<li><a href="#_7">自定义数据类型</a></li>
+</ul>
+</li>
+<li><a href="#_8">字符串、向量、数组</a><ul>
+<li><a href="#string">有关string</a><ul>
+<li><a href="#string_1">初始化string</a></li>
+<li><a href="#getline">如何使用getline读取一整行</a></li>
+<li><a href="#_9">如何字符串相加</a></li>
+<li><a href="#_10">如何遍历字符串</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="c">C++基础</h2>
+<p>包含一些c++的基本概念和规则，与C语言的一部分需要注意的点结合叙述。</p>
+<h3 id="_1">变量和基本类型</h3>
+<p>在C++中，变量的初始化和赋值是两个完全不同的操作。</p>
+<h4 id="_2">列表初始化</h4>
+<p>用花括号来初始化变量得到了全面应用，如下：</p>
+<div class="hlcode"><pre><span class="kt">int</span> <span class="n">unit</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span> <span class="n">unit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">unit</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span> <span class="nf">unit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+
+
+<h4 id="_3">默认初始化</h4>
+<p>对于内置类型变量：若在函数外部，则被初始化为0；在函数内部，将不被初始化，即未被定义，将引发错误。</p>
+<h4 id="_4">变量声明和定义的关系</h4>
+<p>声明：让变量为程序所知。</p>
+<p>定义：为变量创建与名字相关的实体。</p>
+<div class="hlcode"><pre><span class="k">extern</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">//声明</span>
+<span class="kt">int</span> <span class="n">j</span><span class="p">;</span> <span class="c1">//定义并定义</span>
+<span class="k">extern</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">//定义</span>
+</pre></div>
+
+
+<h4 id="_5">复合类型：引用和指针</h4>
+<p>引用：给对象其另外一个名字，且必须被初始化。与别名等同。</p>
+<div class="hlcode"><pre><span class="kt">int</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">&amp;</span><span class="n">refVal</span> <span class="o">=</span> <span class="n">ival</span><span class="p">;</span> <span class="c1">//refVal引用ival</span>
+<span class="kt">int</span> <span class="o">&amp;</span><span class="n">refVal4</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">//错误：引用只能绑定在对象上</span>
+</pre></div>
+
+
+<p>指针：指向另外一个类型的复合类型。<br />
+空指针三种方式：<code>int *p1=nullptr;``int *p2=0;``int *p3=NULL;</code></p>
+<p>依照修饰符和变量名在一起的原则定义变量。<code>int *p = 1;</code></p>
+<h4 id="_6">定义常量</h4>
+<p>多个文件共享const对象：<code>extern const int a = 1;</code></p>
+<p>对常量的引用一定要是相同类型的引用对象。</p>
+<div class="hlcode"><pre><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="mi">1</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+</pre></div>
+
+
+<p>不过，对const的引用可能引用一个并非const的对象，如下</p>
+<div class="hlcode"><pre><span class="kt">int</span> <span class="n">i</span>  <span class="o">=</span> <span class="mi">43</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">&amp;</span><span class="n">a</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">r2</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">r1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//这个是错误的 无法改变</span>
+</pre></div>
+
+
+<p>顶层const表示指针本身就是一个常量，底层const表示指针所指对象是一个常量。</p>
+<h4 id="constexpr">常量表达式和constexpr</h4>
+<p>常量表达式指值不会改变并且在编译过程中就能得到计算结果的表达式。</p>
+<p>如果你认定一个变量是常量表达式，那么就把它声明为constexpr类型。</p>
+<h4 id="_7">自定义数据类型</h4>
+<div class="hlcode"><pre><span class="k">struct</span> <span class="n">sales_data</span> <span class="p">{</span> <span class="cm">/* */</span> <span class="p">};</span>
+<span class="n">sales_data</span> <span class="n">accum</span><span class="p">,</span> <span class="n">trans</span><span class="p">,</span> <span class="o">*</span><span class="n">salesptr</span><span class="p">;</span>
+</pre></div>
+
+
+<h3 id="_8">字符串、向量、数组</h3>
+<p>使用using声明无需专门的前缀即可使用相关的方法，例如：using <em>namespace::name</em>;</p>
+<div class="hlcode"><pre><span class="n">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">;</span>
+</pre></div>
+
+
+<h4 id="string">有关string</h4>
+<p>以下示例包含以下前提代码：</p>
+<div class="hlcode"><pre><span class="vi">#include</span> <span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span>
+<span class="nx">using</span> <span class="nx">std</span><span class="p">::</span><span class="nl">string</span><span class="p">;</span>
+</pre></div>
+
+
+<h5 id="string_1">初始化string</h5>
+<div class="hlcode"><pre><span class="n">string</span> <span class="n">s1</span><span class="p">;</span> <span class="c1">//初始化为空</span>
+<span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">s3</span> <span class="o">=</span> <span class="s">&quot;lalala&quot;</span><span class="p">;</span> <span class="c1">//拷贝初始化</span>
+<span class="n">string</span> <span class="n">s4</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">)</span> <span class="c1">//十个a转换成的字符串</span>
+
+<span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">s1</span><span class="p">;</span> <span class="o">&lt;=&gt;</span> <span class="n">string</span> <span class="n">s2</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+<span class="n">string</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;aa&quot;</span><span class="p">;</span> <span class="o">&lt;=&gt;</span> <span class="n">string</span> <span class="n">s2</span><span class="p">(</span><span class="s">&quot;aa&quot;</span><span class="p">);</span> <span class="c1">//拷贝初始化与直接初始化</span>
+</pre></div>
+
+
+<h5 id="getline">如何使用getline读取一整行</h5>
+<div class="hlcode"><pre><span class="kt">int</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">line</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>触发getline函数返回的那个换行符实际上被丢弃了，返回的line中没有那个换行符。</p>
+<p><code>line.empty()</code>反应字符串是否为空；<code>line.size()</code>返回字符的个数。</p>
+<p>注意：size()函数返回值的类型是string::size_type，很神秘，是一个无符号类型的值。所以如果一条表达式中有size()函数，就不要再使用int了，避免错误的产生。使用decltype定义size()的返回值。或者使用<code>string::size_type n;</code></p>
+<h5 id="_9">如何字符串相加</h5>
+<div class="hlcode"><pre><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;ee&quot;</span><span class="p">,</span><span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;aa&quot;</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">a</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">b</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="s">&quot;aa&quot;</span><span class="p">;</span>
+<span class="n">string</span> <span class="n">c</span> <span class="o">=</span> <span class="s">&quot;vv&quot;</span> <span class="o">+</span> <span class="s">&quot;bb&quot;</span><span class="p">;</span> <span class="c1">//错误，字面量不能直接相加</span>
+</pre></div>
+
+
+<p>综上所说，要实现string的加减，必须要有一方为string类型，而不能染字面量直接相加。</p>
+<h5 id="_10">如何遍历字符串</h5>
+<div class="hlcode"><pre><span class="k">for</span> <span class="p">(</span> <span class="n">declaration</span> <span class="o">:</span> <span class="n">expression</span><span class="p">(</span><span class="err">对象</span><span class="p">))</span>
+    <span class="n">statement</span>
+</pre></div>
+
+
+<p>注意：如果想要改变字符串中的值，一定要将declaration改成引用类型。</p>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2018 heyunfan.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2018-06-26 23:41:54</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
