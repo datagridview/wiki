@@ -90,4 +90,66 @@ struct sales_data { /* */ };
 sales_data accum, trans, *salesptr;
 ```
 
+### 字符串、向量、数组
 
+使用using声明无需专门的前缀即可使用相关的方法，例如：using _namespace::name_;
+
+```
+using std::cin;
+```
+
+#### 有关string
+
+以下示例包含以下前提代码：
+
+```
+#include <string>
+using std::string;
+```
+
+##### 初始化string
+
+```
+string s1; //初始化为空
+string s2 = s1;
+string s3 = "lalala"; //拷贝初始化
+string s4(10, 'a') //十个a转换成的字符串
+
+string s2 = s1; <=> string s2(s1);
+string s2 = "aa"; <=> string s2("aa"); //拷贝初始化与直接初始化
+```
+
+##### 如何使用getline读取一整行
+
+```
+int main () {
+	string line;
+	while(getline(cin, line))
+		cout << line << endl;
+	return 0; 
+}
+```
+
+触发getline函数返回的那个换行符实际上被丢弃了，返回的line中没有那个换行符。
+
+`line.empty()`反应字符串是否为空；`line.size()`返回字符的个数。
+
+注意：size()函数返回值的类型是string::size_type，很神秘，是一个无符号类型的值。所以如果一条表达式中有size()函数，就不要再使用int了，避免错误的产生。使用decltype定义size()的返回值。或者使用`string::size_type n;`
+
+##### 如何字符串相加
+
+```
+string s1 = "ee",s2 = "aa";
+string a = s1 + s2;
+string b = s1 + "aa";
+string c = "vv" + "bb"; //错误，字面量不能直接相加
+```
+综上所说，要实现string的加减，必须要有一方为string类型，而不能染字面量直接相加。
+
+##### 如何遍历字符串
+```
+for ( declaration : expression(对象))
+	statement
+```
+
+注意：如果想要改变字符串中的值，一定要将declaration改成引用类型。
