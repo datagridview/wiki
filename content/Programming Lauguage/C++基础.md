@@ -1,8 +1,8 @@
 ---
 title: "C++"
 date: 2018-06-25 14:19
-updated: 2018-06-25 14:19
-log: "第一次编辑"
+updated: 2018-06-29 22:54
+log: "更新了Vector和迭代器"
 ---
 
 [TOC]
@@ -153,3 +153,44 @@ for ( declaration : expression(对象))
 ```
 
 注意：如果想要改变字符串中的值，一定要将declaration改成引用类型。
+
+#### 向量Vector
+```C++
+#include <vector>
+using std::vector;
+```
+Vector是一个类模版，根据模版创建类或者函数的过程称为实例化。Vector是模版而不是类型，所以他的初始化一定要包含类型。
+
+初始化Vector的方法(T表示类型)：
+
+```
+vector<T> v1;
+vector<T> v1 = v2;
+vector<T> v1(v2);
+vector<T> v1(n,val);
+vector<T> v1(n); //n个默认初始化
+vector<T> v1{a,b,c..};
+vector<T> v1 = {a,b,c..};
+```
+vector的成员变量函数push_back向其中添加值，具体的其它一些操作函数如下：
+
+```C++
+.empty() //判断是否为空
+.size()
+.push_back(t)
+v1 = {a,b,v...} //拷贝替换
+```
+
+其中，size函数与string的size 函数作用和返回值类型别无二致。
+
+注意⚠️：可以用下标访问值，却不能用下标修改值。
+
+#### 迭代器
+
+* string和vector都支持迭代器。
+
+* 支持迭代器的类型都包含两种成员：`.begin()`返回指向第一个元素的迭代器；`.end()`返回指向尾元素的下一个位置的迭代器。如果容器为空，那么返回的迭代器相同。
+
+* 任何改变容器容量的行为都有可能导致迭代器失效。所以，只要使用了迭代器的循环体，都不要向其所属的容器里添加元素。
+
+* 迭代器可以通过关系运算符来比较大小
