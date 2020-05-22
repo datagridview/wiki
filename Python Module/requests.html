@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Requests - 何先生的wiki</title>
+    <meta name="keywords" content="wiki,simiki"/>
+    <meta name="description" content="newpage of github"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#Python Module">Python Module</a>&nbsp;&#187;&nbsp;Requests
+    <span class="updated">Page Updated&nbsp;
+      2017-08-17 11:36
+      
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Requests</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#_1">会话</a></li>
+<li><a href="#get">GET发送请求</a></li>
+<li><a href="#post">POST请求</a><ul>
+<li><a href="#_2">上传多部分编码文件</a></li>
+</ul>
+</li>
+<li><a href="#cookie">Cookie</a></li>
+<li><a href="#_3">状态响应码</a></li>
+<li><a href="#_4">错误与异常</a></li>
+<li><a href="#_5">代理</a></li>
+</ul>
+</div>
+<p>官方网站：<a href="http://docs.python-requests.org/zh_CN/latest/user/quickstart.html#id9">Requests</a></p>
+<h2 id="_1">会话</h2>
+<div class="hlcode"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+<span class="c">#一般样例</span>
+<span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">playload</span><span class="p">,</span>\ 
+        <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> \
+        <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">,</span> \
+        <span class="n">verify</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cert</span><span class="o">=</span><span class="s">&#39;/wrong_path/client.pem&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>选项 <code>verify</code> 仅应用于主机证书</p>
+<h2 id="get">GET发送请求</h2>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;key1&#39;</span><span class="p">:</span> <span class="s">&#39;value1&#39;</span><span class="p">,</span> <span class="s">&#39;key2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;value2&#39;</span><span class="p">,</span> <span class="s">&#39;value3&#39;</span><span class="p">]}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://httpbin.org/get&#39;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+<span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">httpbin</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">get</span><span class="err">?</span><span class="n">key1</span><span class="o">=</span><span class="n">value1</span><span class="o">&amp;</span><span class="n">key2</span><span class="o">=</span><span class="n">value2</span><span class="o">&amp;</span><span class="n">key2</span><span class="o">=</span><span class="n">value3</span>
+</pre></div>
+
+
+<ul>
+<li>Requests 允许你使用 <code>params</code> 关键字参数，以一个字符串字典来提供这些参数。</li>
+<li>字典里值为 <strong><code>None</code></strong> 的键都不会被添加到 URL 的查询字符串里.</li>
+</ul>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">encoding</span>
+<span class="s">&#39;utf-8&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s">&#39;ISO-8859-1&#39;</span>
+</pre></div>
+
+
+<p>通过修改编码来重新对response进行编码。</p>
+<ul>
+<li><code>r.text</code>返回编码过的数据</li>
+<li><code>r.content</code>返回二进制字节文件</li>
+<li><code>r.json()</code>返回json对象处理文件</li>
+</ul>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.github.com/some/endpoint&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s">&#39;my-app/0.0.1&#39;</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>如果在 <code>.netrc</code> 中设置了用户认证信息，使用 headers= 设置的授权就不会生效。而如果设置了<code>auth=</code> 参数，<code>.netrc</code> 的设置就无效了。</li>
+<li>如果被重定向到别的主机，授权 header 就会被删除。</li>
+<li>代理授权 header 会被 URL 中提供的代理身份覆盖掉。</li>
+<li>在我们能判断内容长度的情况下，header 的 Content-Length 会被改写。</li>
+</ul>
+<h2 id="post">POST请求</h2>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;key1&#39;</span><span class="p">:</span> <span class="s">&#39;value1&#39;</span><span class="p">,</span> <span class="s">&#39;key2&#39;</span><span class="p">:</span> <span class="s">&#39;value2&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&quot;http://httpbin.org/post&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="_2">上传多部分编码文件</h3>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://httpbin.org/post&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">files</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;file&#39;</span><span class="p">:</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;report.xls&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="cookie">Cookie</h2>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://httpbin.org/cookies&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cookies</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cookies_are</span><span class="o">=</span><span class="s">&#39;working&#39;</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="n">cookies</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+<span class="s">&#39;{&quot;cookies&quot;: {&quot;cookies_are&quot;: &quot;working&quot;}}&#39;</span>
+</pre></div>
+
+
+<p>cookie 的设置。</p>
+<h2 id="_3">状态响应码</h2>
+<div class="hlcode"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://httpbin.org/get&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span>           <span class="c">#状态码</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>    <span class="c">#抛出异常</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span>               <span class="c">#查看响应头，服务器的</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">requests</span><span class="o">.</span><span class="n">headers</span>      <span class="c">#发送的</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">r</span><span class="o">.</span><span class="n">history</span>               <span class="c">#追踪重定向，看看是不是有值</span>
+</pre></div>
+
+
+<p>通过在请求中加入<code>allow_redirects=False</code>来禁用重定向</p>
+<p>通过请求中加入<code>timeout=0.01</code>读秒之后停止响应等待</p>
+<h2 id="_4">错误与异常</h2>
+<ul>
+<li><code>ConnectionError</code>  : 遇到网络问题</li>
+<li><code>HTTPError</code>  : HTTP 请求返回了不成功的状态码</li>
+<li><code>Timeout</code>  : 请求超时</li>
+<li><code>TooManyRedirects</code>  : 超过了设定的最大重定向次数</li>
+</ul>
+<h2 id="_5">代理</h2>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">proxies</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">&quot;http&quot;</span><span class="p">:</span> <span class="s">&quot;http://10.10.1.10:3128&quot;</span><span class="p">,</span>         <span class="c">#&#39;http&#39;: &#39;socks5://user:pass@host:port&#39;</span>
+  <span class="s">&quot;https&quot;</span><span class="p">:</span> <span class="s">&quot;http://10.10.1.10:1080&quot;</span><span class="p">,</span>        <span class="c">#&#39;https&#39;: &#39;socks5://user:pass@host:port&#39;</span>
+<span class="p">}</span>
+<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;http://example.org&quot;</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="n">proxies</span><span class="p">)</span>
+</pre></div>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2020 heyunfan.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2020-05-22 20:42:22</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>

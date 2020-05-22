@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/static/css/tango.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Markdown - 何先生的wiki</title>
+    <meta name="keywords" content="wiki,simiki"/>
+    <meta name="description" content="newpage of github"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+    <div id="container">
+      
+<div id="header">
+  <div class="post-nav"><a href="/">Home</a>&nbsp;&#187;&nbsp;<a href="/#Writing Mode">Writing Mode</a>&nbsp;&#187;&nbsp;Markdown
+    <span class="updated">Page Updated&nbsp;
+      2017-08-01 14:19
+      
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Markdown</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#_1">标题字号</a></li>
+<li><a href="#_2">区块引用</a></li>
+<li><a href="#_3">列表</a></li>
+<li><a href="#_4">代码区块/分隔线</a></li>
+<li><a href="#_5">链接</a></li>
+<li><a href="#_6">强调\小段代码</a></li>
+<li><a href="#_7">图片</a></li>
+<li><a href="#_8">另注</a></li>
+</ul>
+</div>
+<h3 id="_1">标题字号</h3>
+<div class="hlcode"><pre><span class="c"># 各级的标题</span>
+<span class="c">###### h6</span>
+</pre></div>
+
+
+<h3 id="_2">区块引用</h3>
+<div class="hlcode"><pre><span class="o">&gt;</span> 
+<span class="o">&gt;</span> <span class="n">you</span> <span class="n">have</span> <span class="n">use</span> <span class="n">a</span> <span class="n">format</span> <span class="n">of</span> <span class="n">blockquote</span><span class="p">.</span><span class="err">#不一定每行都要加这个引导号，一个段落一个也行</span>
+<span class="o">&gt;&gt;</span> <span class="n">This</span> <span class="n">is</span> <span class="n">nested</span> <span class="n">blockquote</span><span class="p">.</span><span class="err">#可以嵌套</span><span class="p">(</span><span class="err">多种</span><span class="n">markdown</span><span class="err">语法样式</span><span class="p">)</span>
+<span class="o">&gt;</span><span class="err">#</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="_3">列表</h3>
+<div class="hlcode"><pre><span class="o">*</span>           <span class="err">#无序列表表示</span>
+<span class="o">+</span>           <span class="err">#无序列表表示</span>
+<span class="o">-</span>           <span class="err">#无序列表表示</span>
+<span class="mf">1.</span>          <span class="err">#有序列表表示</span>
+<span class="mf">2.</span>          <span class="err">#有序列表表示</span>
+<span class="mf">3.</span>          <span class="err">#有序列表表示</span>
+</pre></div>
+
+
+<p>列表项目可以包含多个段落，段首加Tab。总而言之一句话，凡是嵌套在列表内部，要缩进。如：</p>
+<div class="hlcode"><pre><span class="mf">1.</span>  <span class="n">This</span> <span class="n">is</span> <span class="n">a</span> <span class="n">list</span> <span class="n">item</span> <span class="n">with</span> <span class="n">two</span> <span class="n">paragraphs</span><span class="p">.</span> 
+
+    <span class="n">Vestibulum</span> <span class="n">enim</span> <span class="n">wisi</span><span class="p">,</span> <span class="n">viverra</span> <span class="n">nec</span><span class="p">,</span> <span class="n">fringilla</span> <span class="n">in</span><span class="p">,</span> <span class="n">laoreet</span>
+    <span class="n">vitae</span><span class="p">,</span> <span class="n">risus</span><span class="p">.</span> <span class="n">Donec</span> <span class="n">sit</span> <span class="n">amet</span> <span class="n">nisl</span><span class="p">.</span> <span class="n">Aliquam</span> <span class="n">semper</span> <span class="n">ipsum</span>
+    <span class="n">sit</span> <span class="n">amet</span> <span class="n">velit</span><span class="p">.</span>
+
+<span class="mf">2.</span>  <span class="n">This</span> <span class="n">is</span> <span class="n">a</span> <span class="n">example</span><span class="p">.</span>
+
+    <span class="o">&gt;</span> <span class="n">this</span> <span class="n">is</span> <span class="n">a</span> <span class="n">quote</span><span class="p">.</span>
+</pre></div>
+
+
+<h3 id="_4">代码区块/分隔线</h3>
+<p>直接一个Tab开头写。</p>
+<div class="hlcode"><pre><span class="n">ordinary</span><span class="p">;</span>   <span class="err">#普通区域</span>
+    <span class="n">codeField</span><span class="p">;</span>  <span class="err">#代码区块</span>
+<span class="o">***</span>   <span class="o">---</span>   <span class="err">#分隔线</span>
+</pre></div>
+
+
+<h3 id="_5">链接</h3>
+<div class="hlcode"><pre><span class="n">This</span> <span class="n">is</span> <span class="p">[</span><span class="n">an</span> <span class="n">example</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.com/ &quot;Title&quot;) inline link.#有标题</span>
+<span class="p">[</span><span class="n">This</span> <span class="n">link</span><span class="p">](</span><span class="n">http</span><span class="o">:</span><span class="c1">//example.net/) has no title attribute.#无标题</span>
+<span class="n">This</span> <span class="n">is</span> <span class="p">[</span><span class="n">an</span> <span class="n">example</span><span class="p">][</span><span class="kt">id</span><span class="p">]</span> <span class="n">reference</span><span class="o">-</span><span class="n">style</span> <span class="n">link</span><span class="p">.</span><span class="err">#</span><span class="n">id</span><span class="err">代替法</span>
+<span class="p">[</span><span class="kt">id</span><span class="p">]</span><span class="o">:</span> <span class="n">http</span><span class="o">:</span><span class="c1">//example.com/  (Optional Title Here)#id的链接表示（用数字一般title要写）</span>
+</pre></div>
+
+
+<h3 id="_6">强调\小段代码</h3>
+<div class="hlcode"><pre><span class="o">*</span><span class="nx">single</span> <span class="nx">asterisks</span><span class="o">*</span>  <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">single</span> <span class="nx">asterisks</span><span class="o">&lt;/</span><span class="nx">em</span><span class="o">&gt;</span>
+<span class="o">**</span><span class="nx">strong</span> <span class="nx">asterisks</span><span class="o">**</span>    <span class="o">&lt;</span><span class="nx">strong</span><span class="o">&gt;</span><span class="nx">double</span> <span class="nx">asterisks</span><span class="o">&lt;/</span><span class="nx">strong</span><span class="o">&gt;</span>
+<span class="sb">`short code`</span>    <span class="err">#</span><span class="nx">小段代码的引用</span>
+</pre></div>
+
+
+<h3 id="_7">图片</h3>
+<div class="hlcode"><pre><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">img</span><span class="p">.</span><span class="n">jpg</span> <span class="s">&quot;Optional title&quot;</span><span class="p">)</span>  <span class="err">#图片的插入</span>
+<span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">text</span><span class="p">][</span><span class="kt">id</span><span class="p">]</span>
+<span class="p">[</span><span class="kt">id</span><span class="p">]</span><span class="o">:</span> <span class="n">url</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">image</span>  <span class="s">&quot;Optional title attribute&quot;</span>  <span class="err">#与网址一致</span>
+</pre></div>
+
+
+<h3 id="_8">另注</h3>
+<p>需要注意灵活使用<html>相关代码标签，会使得文档更加的协调。</p>
+<p>datagridview</p>
+    </div>
+    <div id="footer">
+      <span>
+        <p>Copyright © 2020 heyunfan.
+        Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
+        <p>Site Generated 2020-05-22 20:42:22</p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
