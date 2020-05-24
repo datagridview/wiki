@@ -27,78 +27,141 @@
 <div class="page_title">Bash Shell</div>
 
   <div class="toc"><span class="toctitle">Table of Contents</span><ul>
-<li><a href="#_1">变量</a><ul>
-<li><a href="#_2">声明变量</a></li>
-<li><a href="#_3">使用变量</a></li>
-<li><a href="#_4">截取变量</a></li>
-<li><a href="#_5">变量的默认值</a></li>
-<li><a href="#_6">内置变量</a></li>
+<li><a href="#_1">注释</a></li>
+<li><a href="#_2">变量</a><ul>
+<li><a href="#_3">声明变量</a></li>
+<li><a href="#_4">使用变量</a></li>
+<li><a href="#_5">两种引号拼接字符串</a></li>
+<li><a href="#_6">截取变量</a></li>
+<li><a href="#_7">变量的默认值</a></li>
+<li><a href="#_8">数组变量</a></li>
+<li><a href="#_9">内置变量</a></li>
 </ul>
 </li>
-<li><a href="#_7">输入</a><ul>
-<li><a href="#_8">读取输入</a></li>
+<li><a href="#_10">输入</a><ul>
+<li><a href="#_11">读取输入</a></li>
 </ul>
 </li>
-<li><a href="#_9">结构</a><ul>
+<li><a href="#_12">结构</a><ul>
 <li><a href="#if">if结构</a></li>
 <li><a href="#case">case结构</a></li>
 <li><a href="#for">for结构</a></li>
 <li><a href="#while">while 结构</a></li>
-<li><a href="#_10">函数结构</a></li>
-<li><a href="#_11">简单命令选择</a></li>
+<li><a href="#_13">函数结构</a></li>
+<li><a href="#_14">简单命令选择</a></li>
 </ul>
 </li>
-<li><a href="#_12">表达式</a></li>
-<li><a href="#_13">命令</a></li>
+<li><a href="#_15">表达式</a><ul>
+<li><a href="#_16">运算符</a></li>
+</ul>
+</li>
+<li><a href="#_17">重定向</a><ul>
+<li><a href="#_18">流</a></li>
+<li><a href="#_19">重定向表示</a></li>
+</ul>
+</li>
 </ul>
 </div>
-<h2 id="_1">变量</h2>
-<h3 id="_2">声明变量</h3>
-<p>等于号前后<strong>不要加空格</strong>，会被认为是一条指令</p>
-<div class="hlcode"><pre><span class="n">Variable</span><span class="o">=</span><span class="s">&quot;Some string&quot;</span>
+<h2 id="_1">注释</h2>
+<div class="hlcode"><pre><span class="o">:&lt;&lt;</span><span class="n">EOF</span>
+<span class="n">echo</span> <span class="err">&#39;这是多行注释&#39;</span>
+<span class="n">echo</span> <span class="err">&#39;这是多行注释&#39;</span>
+<span class="n">echo</span> <span class="err">&#39;这是多行注释&#39;</span>
+<span class="n">EOF</span>
 </pre></div>
 
 
-<h3 id="_3">使用变量</h3>
+<h2 id="_2">变量</h2>
+<h3 id="_3">声明变量</h3>
+<p>等于号前后<strong>不要加空格</strong>，会被认为是一条指令</p>
+<div class="hlcode"><pre><span class="n">Variable</span><span class="o">=</span><span class="s">&quot;Some string&quot;</span>
+<span class="n">Variable</span><span class="o">=</span><span class="err">$</span><span class="n">anotherVariable</span>
+</pre></div>
+
+
+<h3 id="_4">使用变量</h3>
 <p><strong>赋值</strong>、<code>export</code>使用变量时，前面不加<code>$</code></p>
 <p>单引号不会展开变量</p>
 <div class="hlcode"><pre><span class="n">echo</span> <span class="err">$</span><span class="n">Variable</span>
 <span class="n">echo</span> <span class="s">&quot;$Variable&quot;</span>
 <span class="n">echo</span> <span class="err">&#39;$</span><span class="n">Variable</span><span class="err">&#39;</span>
+
+<span class="kt">FILE</span><span class="o">=</span><span class="s">&quot;Favorite Things.txt&quot;</span>
+<span class="n">cat</span> <span class="err">$</span><span class="kt">FILE</span>   <span class="err">###</span> <span class="err">尝试输出两个文件</span><span class="o">:</span> <span class="err">`</span><span class="n">Favorite</span><span class="err">`</span> <span class="err">和</span> <span class="err">`</span><span class="n">Things</span><span class="p">.</span><span class="n">txt</span><span class="err">`</span>
+<span class="n">cat</span> <span class="s">&quot;$FILE&quot;</span> <span class="err">###</span> <span class="err">输出一个文件</span><span class="o">:</span> <span class="err">`</span><span class="n">Favorite</span> <span class="n">Things</span><span class="p">.</span><span class="n">txt</span><span class="err">`</span>
+
+<span class="n">readonly</span> <span class="n">rword</span>
+<span class="cp"># rword=&quot;bye&quot;  # 如果放开注释，执行时会报错</span>
+
+<span class="n">unset</span> <span class="n">dword</span>    <span class="err">#</span> <span class="err">删除变量</span>
 </pre></div>
 
 
-<h3 id="_4">截取变量</h3>
+<h3 id="_5">两种引号拼接字符串</h3>
+<div class="hlcode"><pre># 使用单引号拼接
+name1=&#39;white&#39;
+str1=&#39;hello, &#39;<span class="cp">${</span><span class="n">name1</span><span class="cp">}</span>&#39;&#39;
+str2=&#39;hello, <span class="cp">${</span><span class="n">name1</span><span class="cp">}</span>&#39;
+echo <span class="cp">${</span><span class="n">str1</span><span class="cp">}</span>_<span class="cp">${</span><span class="n">str2</span><span class="cp">}</span>
+# Output:
+# hello, white_hello, <span class="cp">${</span><span class="n">name1</span><span class="cp">}</span>
+
+# 使用双引号拼接
+name2=&quot;black&quot;
+str3=&quot;hello, &quot;<span class="cp">${</span><span class="n">name2</span><span class="cp">}</span>&quot;&quot;
+str4=&quot;hello, <span class="cp">${</span><span class="n">name2</span><span class="cp">}</span>&quot;
+echo <span class="cp">${</span><span class="n">str3</span><span class="cp">}</span>_<span class="cp">${</span><span class="n">str4</span><span class="cp">}</span>
+# Output:
+# hello, black_hello, black
+</pre></div>
+
+
+<h3 id="_6">截取变量</h3>
 <div class="hlcode"><pre># 返回变量的前7个字符
 Length=7
 echo <span class="cp">${</span><span class="n">Variable</span><span class="p">:</span><span class="mi">0</span><span class="p">:</span><span class="n">Length</span><span class="cp">}</span>
 </pre></div>
 
 
-<h3 id="_5">变量的默认值</h3>
+<h3 id="_7">变量的默认值</h3>
 <p>当变量为null或者""时，返回默认值，<strong>对于变量的值没有影响</strong></p>
 <div class="hlcode"><pre><span class="s-Atom">echo</span> <span class="err">$</span><span class="p">{</span><span class="nv">Foo</span><span class="p">:-</span><span class="s2">&quot;Default&quot;</span><span class="p">}</span>
 </pre></div>
 
 
-<h3 id="_6">内置变量</h3>
+<h3 id="_8">数组变量</h3>
+<p>数组下标从 0 开始，下标可以是整数或算术表达式，其值应大于或等于 0。</p>
+<div class="hlcode"><pre>colors=(red yellow &quot;dark blue&quot;)
+
+echo <span class="cp">${</span><span class="n">colors</span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="cp">}</span>
+# Output: red yellow dark blue 
+# 其中dark blue其实分离了
+
+echo <span class="cp">${</span><span class="n">colors</span><span class="p">[</span><span class="err">@</span><span class="p">]</span><span class="cp">}</span>
+# Output: red yellow dark blue
+# 其中dark blue没有分离 还是一个整体参数
+</pre></div>
+
+
+<h3 id="_9">内置变量</h3>
 <div class="hlcode"><pre><span class="n">echo</span> <span class="s">&quot;Last program return value: $?&quot;</span>
 <span class="n">echo</span> <span class="s">&quot;Script&#39;s PID: $$&quot;</span>
 <span class="n">echo</span> <span class="s">&quot;Number of arguments: $#&quot;</span>
 <span class="n">echo</span> <span class="s">&quot;Scripts arguments: $@&quot;</span>
+<span class="n">echo</span> <span class="s">&quot;Scripts arguments: $*&quot;</span>
 <span class="n">echo</span> <span class="s">&quot;Scripts arguments separated in different variables: $1 $2...&quot;</span>
 </pre></div>
 
 
-<h2 id="_7">输入</h2>
-<h3 id="_8">读取输入</h3>
+<h2 id="_10">输入</h2>
+<h3 id="_11">读取输入</h3>
 <div class="hlcode"><pre><span class="n">echo</span> <span class="s">&quot;What&#39;s your name?&quot;</span>
 <span class="n">read</span> <span class="n">Name</span> <span class="err">#</span> <span class="err">这里不需要声明新变量</span>
 <span class="n">echo</span> <span class="n">Hello</span><span class="p">,</span> <span class="err">$</span><span class="n">Name</span><span class="o">!</span>
 </pre></div>
 
 
-<h2 id="_9">结构</h2>
+<h2 id="_12">结构</h2>
 <h3 id="if">if结构</h3>
 <div class="hlcode"><pre><span class="k">if</span> <span class="p">[</span> <span class="err">$</span><span class="n">Name</span> <span class="o">-</span><span class="n">ne</span> <span class="err">$</span><span class="n">USER</span> <span class="p">]</span>
 <span class="n">then</span>
@@ -110,7 +173,8 @@ echo <span class="cp">${</span><span class="n">Variable</span><span class="p">:<
 
 
 <h3 id="case">case结构</h3>
-<div class="hlcode"><pre><span class="k">case</span> <span class="s">&quot;$Variable&quot;</span> <span class="n">in</span>
+<div class="hlcode"><pre><span class="cp"># 命令块之间要用;;分隔。</span>
+<span class="k">case</span> <span class="s">&quot;$Variable&quot;</span> <span class="n">in</span>
     <span class="err">#</span> <span class="err">列出需要匹配的字符串</span>
     <span class="mi">0</span><span class="p">)</span> <span class="n">echo</span> <span class="s">&quot;There is a zero.&quot;</span><span class="p">;;</span>
     <span class="mi">1</span><span class="p">)</span> <span class="n">echo</span> <span class="s">&quot;There is a one.&quot;</span><span class="p">;;</span>
@@ -150,7 +214,7 @@ echo <span class="cp">${</span><span class="n">Variable</span><span class="p">:<
 </pre></div>
 
 
-<h3 id="_10">函数结构</h3>
+<h3 id="_13">函数结构</h3>
 <div class="hlcode"><pre><span class="cp"># 经典</span>
 <span class="n">function</span> <span class="nf">foo</span> <span class="p">()</span>
 <span class="p">{</span>
@@ -167,12 +231,12 @@ echo <span class="cp">${</span><span class="n">Variable</span><span class="p">:<
     <span class="k">return</span> <span class="mi">0</span>
 <span class="p">}</span>
 
-<span class="cp">#调用</span>
+<span class="cp"># 调用</span>
 <span class="n">foo</span> <span class="s">&quot;My name is&quot;</span> <span class="err">$</span><span class="n">Name</span>
 </pre></div>
 
 
-<h3 id="_11">简单命令选择</h3>
+<h3 id="_14">简单命令选择</h3>
 <div class="hlcode"><pre><span class="n">echo</span> <span class="s">&quot;Always executed&quot;</span> <span class="o">||</span> <span class="n">echo</span> <span class="s">&quot;Only executed if first command fails&quot;</span>
 <span class="n">echo</span> <span class="s">&quot;Always executed&quot;</span> <span class="o">&amp;&amp;</span> <span class="n">echo</span> <span class="s">&quot;Only executed if first command does NOT fail&quot;</span>
 
@@ -184,8 +248,10 @@ echo <span class="cp">${</span><span class="n">Variable</span><span class="p">:<
 </pre></div>
 
 
-<h2 id="_12">表达式</h2>
+<h2 id="_15">表达式</h2>
 <div class="hlcode"><pre><span class="n">echo</span> <span class="err">$</span><span class="p">((</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">5</span> <span class="p">))</span>
+<span class="cp"># 在算数表达式中，使用变量无需带上$前缀</span>
+
 <span class="cp"># 一个指令可用 $( ) 嵌套在另一个指令内部：</span>
 <span class="cp"># 以下的指令会打印当前目录下的目录和文件总数</span>
 <span class="n">echo</span> <span class="s">&quot;There are $(ls | wc -l) items here.&quot;</span>
@@ -193,16 +259,78 @@ echo <span class="cp">${</span><span class="n">Variable</span><span class="p">:<
 <span class="cp"># 反引号 `` 起相同作用，但不允许嵌套</span>
 <span class="cp"># 优先使用 $(  ).</span>
 <span class="n">echo</span> <span class="s">&quot;There are `ls | wc -l` items here.&quot;</span>
+
+<span class="cp"># 计算表达式的值</span>
+<span class="n">expr</span> <span class="err">$</span><span class="n">a</span> <span class="o">/</span> <span class="err">$</span><span class="n">b</span>
 </pre></div>
 
 
-<h2 id="_13">命令</h2>
+<h3 id="_16">运算符</h3>
+<div class="hlcode"><pre><span class="cp"># 只支持数字运算</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">eq</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">相等</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">ne</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">不等</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">gt</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">大于</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">lt</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">小于</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">ge</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">大于等于</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">le</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">小于等于</span>
+<span class="p">[</span> <span class="o">!</span> <span class="nb">false</span> <span class="p">]</span> <span class="err">#</span> <span class="err">非</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">lt</span> <span class="mi">20</span> <span class="o">-</span><span class="n">o</span> <span class="err">$</span><span class="n">b</span> <span class="o">-</span><span class="n">gt</span> <span class="mi">100</span> <span class="p">]</span> <span class="err">#</span> <span class="err">或</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">-</span><span class="n">lt</span> <span class="mi">20</span> <span class="o">-</span><span class="n">a</span> <span class="err">$</span><span class="n">b</span> <span class="o">-</span><span class="n">gt</span> <span class="mi">100</span> <span class="p">]</span> <span class="err">#</span> <span class="err">与</span>
+
+<span class="cp"># 逻辑运算</span>
+<span class="o">&amp;&amp;</span> <span class="err">#</span> <span class="err">与</span>
+<span class="o">||</span> <span class="err">#</span> <span class="err">或</span>
+
+<span class="cp"># 字符运算</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">=</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">相等</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="o">!=</span> <span class="err">$</span><span class="n">b</span> <span class="p">]</span> <span class="err">#</span> <span class="err">不等</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">z</span> <span class="err">$</span><span class="n">a</span> <span class="p">]</span> <span class="err">#</span> <span class="err">长度为</span><span class="mi">0</span><span class="err">，为</span><span class="mi">0</span> <span class="nb">true</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">n</span> <span class="err">$</span><span class="n">a</span> <span class="p">]</span> <span class="err">#</span> <span class="err">长度为</span><span class="mi">0</span><span class="err">，不为</span><span class="mi">0</span> <span class="nb">true</span>
+<span class="p">[</span> <span class="err">$</span><span class="n">a</span> <span class="p">]</span> <span class="err">#</span> <span class="err">不空为</span><span class="nb">true</span>
+
+<span class="cp"># 文件测试</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">b</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">是块设备文件</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">c</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">是字符设备文件</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">d</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">是目录</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">是普通文件</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">g</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">设置了</span><span class="n">SGID</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">p</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">设置了粘着位</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">u</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">是有名管道</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">w</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">设置了</span><span class="n">SUID</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">x</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">可执行</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">s</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">是非空文件</span>
+<span class="p">[</span> <span class="o">-</span><span class="n">e</span> <span class="err">$</span><span class="n">file</span> <span class="p">]</span> <span class="err">#</span> <span class="err">文件存在</span>
+</pre></div>
+
+
+<h2 id="_17">重定向</h2>
+<h3 id="_18">流</h3>
+<div class="hlcode"><pre><span class="mi">0</span> <span class="err">#</span> <span class="n">stdin</span> <span class="err">默认键盘</span>
+<span class="mi">1</span> <span class="err">#</span> <span class="n">stdout</span> <span class="err">默认屏幕</span>
+<span class="mi">2</span> <span class="err">#</span> <span class="n">stderr</span> <span class="err">默认屏幕</span>
+</pre></div>
+
+
+<h3 id="_19">重定向表示</h3>
+<p><code>|</code>表示将上个命令的<code>stdout</code>作为<code>stdin</code></p>
+<div class="hlcode"><pre><span class="o">&gt;</span> <span class="err">#</span> <span class="err">重定向输出</span> <span class="err">与</span> <span class="mi">1</span><span class="o">&gt;</span><span class="err">一致</span>
+<span class="o">&amp;&gt;</span> <span class="err">#</span> <span class="err">重定向输出和错误输出</span>
+<span class="o">&amp;&gt;&gt;</span> <span class="err">#</span> <span class="err">附加形式重定向输出和错误输出</span>
+<span class="o">&lt;</span> <span class="err">#</span> <span class="err">重定向输入</span>
+<span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>  <span class="err">#</span> <span class="err">标准错误输出重定向到标准输出</span><span class="p">.</span>
+<span class="o">&amp;&gt;</span><span class="n">file</span>  <span class="err">#</span> <span class="err">把标准输出和标准错误输出都重定向到文件</span><span class="n">file</span><span class="err">中</span>
+</pre></div>
+
+
+<p><code>1&gt;&amp;2</code>正确返回值传递给2输出通道 &amp;2表示2输出通道 </p>
+<p>如果此处错写成 1&gt;2, 就表示把1输出重定向到文件2中</p>
+<p><code>2&gt;&amp;1</code>错误返回值传递给1输出通道, 同样&amp;1表示1输出通道</p>
     </div>
     <div id="footer">
       <span>
         <p>Copyright © 2020 heyunfan.
         Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.</p>
-        <p>Site Generated 2020-05-23 23:19:01</p>
+        <p>Site Generated 2020-05-24 16:22:48</p>
       </span>
     </div>
 
